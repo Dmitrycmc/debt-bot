@@ -6,11 +6,11 @@ const {BOT_TOKEN, CHAT_ID} = process.env;
 
 const got = require('got');
 
-const send = (text) => {
+const send = (text, chatId = CHAT_ID) => {
     got.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         searchParams: {
             parse_mode: 'Markdown',
-            chat_id: CHAT_ID,
+            chat_id: chatId,
             text,
             disable_web_page_preview: true,
             disable_notification: true
