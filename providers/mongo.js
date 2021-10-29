@@ -1,7 +1,3 @@
-if (!process.env.DB_PASSWORD) {
-  require('dotenv').config({path: '../.env'});
-}
-
 const { MongoClient } = require('mongodb');
 
 const clusterName = 'cluster0';

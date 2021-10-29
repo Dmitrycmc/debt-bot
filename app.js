@@ -7,6 +7,8 @@ var logger = require('morgan');
 
 var webhookRouter = require('./handlers/webhook');
 
+require('./providers/telegram').setWebhook();
+
 var app = express();
 
 app.use(logger('dev'));
