@@ -3,7 +3,7 @@ const got = require('got');
 
 const {BOT_TOKEN, CHAT_ID, APP_URL, WEBHOOK_TOKEN, WEBHOOK_PATH} = process.env;
 
-const send = async (text, chatId) => {
+const send = async ({text, chatId}) => {
     await got.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         searchParams: {
             parse_mode: 'Markdown',
@@ -21,6 +21,7 @@ const setWebhook = async () => {
             url: `${APP_URL}${WEBHOOK_PATH}?token=${WEBHOOK_TOKEN}`
         }
     });
+    console.log("Webhook set!");
 }
 
 module.exports = {

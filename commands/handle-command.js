@@ -1,5 +1,7 @@
 const telegramProvider = require('../providers/telegram');
 
+const bill = require('./bill');
+
 const handleCommand = async ({text, username, firstname, lastname, chatId}) => {
     let [command, ...args] = text.split(' ');
     command = command.split(/[\/@]/)[1];
@@ -14,8 +16,9 @@ const handleCommand = async ({text, username, firstname, lastname, chatId}) => {
         args
     });
 
-
-    await telegramProvider.send(command, chatId);
+    if (command === 'bill') {
+        await telegramProvider.send({text: await bill(), chatId});
+    }
 };
 
 module.exports = handleCommand;

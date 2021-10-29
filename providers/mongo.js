@@ -24,7 +24,7 @@ const action = async (callback) => {
 
 const insert = ({from, to, amount, description}) => {
   const dateTime = (new Date()).toISOString();
-  action(collection => collection.insertOne({from, to, amount, description, dateTime}));
+  return action(collection => collection.insertOne({from, to, amount, description, dateTime}));
 };
 
 const getAll = () => {
@@ -33,7 +33,12 @@ const getAll = () => {
   }));
 };
 
+const clearAll = () => {
+  return action(collection => collection.deleteMany({}));
+};
+
 module.exports = {
   insert,
-  getAll
+  getAll,
+  clearAll
 };

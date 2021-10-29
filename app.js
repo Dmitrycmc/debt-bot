@@ -5,7 +5,8 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var webhookRouter = require('./handlers/webhook');
+var webhookRouter = require('./routes/webhook');
+var testingApiRouter = require('./routes/testing-api');
 
 require('./providers/telegram').setWebhook();
 
@@ -17,6 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/webhook', webhookRouter);
+if (process.env.NODE_ENV === 'dev') {
+  app.use('/testing-api', testingApiRouter);
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

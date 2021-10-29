@@ -5,7 +5,7 @@ const webhook = async (req, res) => {
   console.log("Webhook body: ");
   console.log(req.body);
   if (req.query.token !== process.env.WEBHOOK_TOKEN) {
-    telegramProvider.send("Invalid webhook token");
+    telegramProvider.send({text: "Invalid webhook token"});
     console.log("Invalid webhook token");
     res.status(403).end();
   } else if (
@@ -14,7 +14,7 @@ const webhook = async (req, res) => {
       !req.body.message.entities ||
       req.body.message.entities.filter(e => e.type === 'bot_command').length !== 1
   ) {
-    telegramProvider.send(`Skipped: ${JSON.stringify(req.body)}`);
+    telegramProvider.send({text: `Skipped: ${JSON.stringify(req.body)}`});
     res.status(200).end();
   } else  {
     const text = req.body.message.text;
