@@ -10,7 +10,21 @@ const all = async (req, res) => {
 };
 
 const webhook = async (req, res) => {
-  telegramProvider.send(JSON.stringify(req.body));
+  if (req.query.token !== process.env.WEBHOOK_TOKEN) {
+    res.status(403).end();
+    return;
+  }
+  const text = req.body.message.text;
+  const username = req.body.message.from.username;
+  const firstname = req.body.message.from.firstname;
+  const lastname = req.body.message.from.lastname;
+
+  telegramProvider.send(JSON.stringify({
+    text,
+    username,
+    firstname,
+    lastname
+  }));
   res.status(200).end();
 };
 
