@@ -24,9 +24,9 @@ const renderTable = (header, rows) => {
     };
 
     return `<pre>${[
-        renderRow(header, '| ', ' | ', ' |'),
-        renderRow(range(columnsNumber).map(i => prefix(null, columnLengths[i], '-')), '|-', '-+-', '-|'),
-        ...rows.map(row => renderRow(row, '| ', ' | ', ' |'))
+        renderRow(header, '|', '|', '|'),
+        renderRow(range(columnsNumber).map(i => prefix(null, columnLengths[i], '-')), '|', '+', '|'),
+        ...rows.map(row => renderRow(row, '|', '|', '|'))
     ].join('\n')}</pre>`;
 };
 
