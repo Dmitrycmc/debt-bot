@@ -6,7 +6,7 @@ const {BOT_TOKEN, CHAT_ID, APP_URL, WEBHOOK_TOKEN, WEBHOOK_PATH} = process.env;
 const send = async ({text, chatId}) => {
     await got.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         searchParams: {
-            parse_mode: 'Markdown',
+            parse_mode: 'html',
             chat_id: chatId || CHAT_ID,
             text,
             disable_web_page_preview: true,

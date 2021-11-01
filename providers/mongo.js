@@ -1,19 +1,19 @@
 const { MongoClient } = require('mongodb');
 
 const clusterName = 'cluster0';
-const dbName = 'Cluster0'; /// ???
-const username = 'debt-admin';
-const password = process.env.DB_PASSWORD;
+const dbName = process.env.NODE_ENV === 'dev' ? 'testing' : 'production';
+const dbUser = 'admin';
+const dbPassword = process.env.DB_PASSWORD;
 
-const uri = `mongodb+srv://${username}:${password}@${clusterName}.3njus.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${dbUser}:${dbPassword}@${clusterName}.v8w4a.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
 const action = async (callback) => {
   let client;
   try {
     client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     await client.connect();
-    const db = client.db("debt-db");
-    const collection = db.collection("debts0");
+    const db = client.db(dbName);
+    const collection = db.collection("debts");
     return await callback(collection);
   } catch (e) {
     console.log('Error: ', e);

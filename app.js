@@ -9,7 +9,8 @@ var webhookRouter = require('./routes/webhook');
 var testingApiRouter = require('./routes/testing-api');
 
 require('./providers/telegram').setWebhook();
-
+console.log('Envirioment: ' + process.env.NODE_ENV);
+console.log(process.env);
 var app = express();
 
 app.use(logger('dev'));

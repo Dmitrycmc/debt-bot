@@ -4,6 +4,8 @@ const fs = require("fs");
 var express = require('express');
 var router = express.Router();
 
+const telegramProvider = require('../providers/telegram');
+
 const commandsPath = path.join(__dirname, "..", "commands");
 
 fs.readdirSync(commandsPath).forEach((fileName) => {
@@ -11,6 +13,7 @@ fs.readdirSync(commandsPath).forEach((fileName) => {
     const handler = require(path.join(commandsPath, fileName));
     router.post(`/commands/${commandName}`, async (req, res) => {
         const result = await handler({...req.body, ...req.query});
+        telegramProvider.send({text: result});
         res.send(result);
     });
 });
