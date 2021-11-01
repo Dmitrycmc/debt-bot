@@ -11,7 +11,8 @@ const handleCommand = async ({text, username, firstname, lastname, chatId}) => {
             username,
             firstname,
             lastname,
-            args
+            args,
+            chatId
         }), chatId});
 };
 

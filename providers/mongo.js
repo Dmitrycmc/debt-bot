@@ -22,14 +22,14 @@ const action = async (callback) => {
   }
 };
 
-const insert = ({from, to, amount, description}) => {
+const insert = ({from, to, amount, description, chatId}) => {
   const dateTime = (new Date()).toISOString();
-  return action(collection => collection.insertOne({from, to, amount, description, dateTime}));
+  return action(collection => collection.insertOne({from, to, amount, description, dateTime, chatId}));
 };
 
-const getAll = () => {
+const getAll = ({chatId}) => {
   return action(collection => new Promise(res => {
-    collection.find().toArray((err, result) => res(result));
+    collection.find({chatId}).toArray((err, result) => res(result));
   }));
 };
 
