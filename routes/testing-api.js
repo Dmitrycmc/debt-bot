@@ -4,18 +4,11 @@ const fs = require("fs");
 var express = require('express');
 var router = express.Router();
 
-const telegramProvider = require('../providers/telegram');
+var handleCommand = require('../commands-handler/handle-command');
 
-const commandsPath = path.join(__dirname, "..", "commands");
-
-fs.readdirSync(commandsPath).forEach((fileName) => {
-    const commandName = fileName.split('.')[0];
-    const handler = require(path.join(commandsPath, fileName));
-    router.post(`/commands/${commandName}`, async (req, res) => {
-        const result = await handler({...req.body, ...req.query});
-        telegramProvider.send({text: result});
-        res.send(result);
-    });
+router.post(`/command`, async (req, res) => {
+    await handleCommand({...req.body, ...req.query});
+    res.end();
 });
 
 const providersPath = path.join(__dirname, "..", "providers");

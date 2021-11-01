@@ -8,7 +8,7 @@ const prefix = (str, length, symbol = ' ') => {
 };
 
 const moneyFormatting = (amount) => {
-    return `${Math.floor(amount / 100)},${prefix(amount % 100, 2, '0')}₽`
+    return `${Math.floor(amount / 100)},${prefix(amount % 100, 2, '0')} ₽`
 };
 
 const renderTable = (header, rows) => {

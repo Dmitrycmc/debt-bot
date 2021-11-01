@@ -1,4 +1,4 @@
-var handleCommand = require('../commands/handle-command');
+var handleCommand = require('../commands-handler/handle-command');
 const telegramProvider = require('../providers/telegram');
 
 const webhook = async (req, res) => {
