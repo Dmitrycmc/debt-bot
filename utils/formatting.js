@@ -8,6 +8,9 @@ const prefix = (str, length, symbol = ' ') => {
 };
 
 const moneyFormatting = (amount) => {
+    if (amount < 0) {
+        return '-' + moneyFormatting(-amount);
+    }
     return `${Math.floor(amount / 100)},${prefix(amount % 100, 2, '0')} ₽`
 };
 

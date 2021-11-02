@@ -15,6 +15,16 @@ const send = async ({text, chatId}) => {
     })
 };
 
+const getChat = async ({chatId}) => {
+    const result = await got.post(`https://api.telegram.org/bot${BOT_TOKEN}/getChat`, {
+        searchParams: {
+            chat_id: chatId,
+        }
+    });
+
+    return result.body;
+};
+
 const setWebhook = async () => {
     await got.get(`https://api.telegram.org/bot${BOT_TOKEN}/setWebhook`, {
         searchParams: {
@@ -26,5 +36,6 @@ const setWebhook = async () => {
 
 module.exports = {
     send,
-    setWebhook
+    setWebhook,
+    getChat
 };
