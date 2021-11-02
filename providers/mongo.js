@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 const clusterName = 'cluster0';
-const dbName = process.env.NODE_ENV === 'dev' ? 'testing' : 'production';
+const dbName = process.env.NODE_ENV;
 const dbUser = 'admin';
 const dbPassword = process.env.DB_PASSWORD;
 
@@ -43,8 +43,8 @@ const clearAll = () => {
   return action('debts', collection => collection.deleteMany({}));
 };
 
-const register = ({userId, chatId, username, aliases}) => {
-  return action('users', collection => collection.insertMany(aliases.map(alias => ({userId, chatId, username, alias}))));
+const register = ({userId, chatId, login, name, aliases}) => {
+  return action('users', collection => collection.insertMany(aliases.map(alias => ({userId, chatId, login, name, alias}))));
 };
 
 const getUsers = ({chatId}) => {

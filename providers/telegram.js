@@ -1,7 +1,9 @@
 require('dotenv').config({path: '../.env'});
 const got = require('got');
 
-const {BOT_TOKEN, CHAT_ID, APP_URL, WEBHOOK_TOKEN, WEBHOOK_PATH} = process.env;
+const {BOT_TOKEN, CHAT_ID, APP_URL, WEBHOOK_TOKEN} = process.env;
+
+const WEBHOOK_PATH = '/webhook';
 
 const send = async ({text, chatId}) => {
     await got.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {

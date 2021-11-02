@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm install && nodemon ./bin/www",
-    "start": "NODE_ENV=dev node ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
