@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npm install && nodemon ./bin/www",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "jest"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -17,7 +18,6 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "concurrently": "^6.2.0",
-    "config": "^3.3.6"
+    "jest": "^27.3.1"
   }
 }
