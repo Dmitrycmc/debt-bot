@@ -6,7 +6,7 @@ const register = async ({chatId, userId, username, args}) => {
         userId,
         login: username,
         name: args[0],
-        aliases: args.map(a => a.toLowerCase())
+        aliases: args
     });
 
     return 'Success';

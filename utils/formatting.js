@@ -11,14 +11,20 @@ const moneyFormatting = (amount) => {
     if (amount < 0) {
         return '-' + moneyFormatting(-amount);
     }
-    return `${Math.floor(amount / 100)},${prefix(amount % 100, 2, '0')} ₽`
+
+    let result = Math.floor(amount / 100);
+    if (amount % 100) {
+        result +=`.${prefix(amount % 100, 2, '0')}`;
+    }
+    result += ' ₽';
+    return result;
 };
 
-const renderTable = (header, rows) => {
-    const columnsNumber = Math.max(header.length, ...rows.map(row => row.length));
+const renderTable = (header, rows = []) => {
+    const columnsNumber = Math.max(header?.length || 0, ...rows.map(row => row.length));
 
     const columnLengths = range(columnsNumber).map(i => Math.max(
-        header[i]?.toString().length || 0,
+        header?.[i]?.toString().length || 0,
         ...rows.map(row => row[i]?.toString().length || 0)
     ));
 
@@ -27,8 +33,10 @@ const renderTable = (header, rows) => {
     };
 
     return `<pre>${[
-        renderRow(header, '|', '|', '|'),
-        renderRow(range(columnsNumber).map(i => prefix(null, columnLengths[i], '-')), '|', '+', '|'),
+        ...(header ? [
+            renderRow(header, '|', '|', '|'),
+            renderRow(range(columnsNumber).map(i => prefix(null, columnLengths[i], '-')), '|', '+', '|')
+        ] : []),
         ...rows.map(row => renderRow(row, '|', '|', '|'))
     ].join('\n')}</pre>`;
 };

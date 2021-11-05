@@ -14,12 +14,12 @@ const bill = async ({chatId}) => {
     }, {});
 
     return renderTable(
-        ['From', 'To', 'Amount', 'Description'],
-        data.map(r => [findUserById(r.from, users).username, findUserById(r.to, users).username, moneyFormatting(r.amount), r.description])
+        ['Кто', 'Кому', 'Сколько', 'За что'],
+        data.map(r => [findUserById(r.from, users).name, findUserById(r.to, users).name, moneyFormatting(r.amount), r.description])
     )
         + "\n\n" +
     renderTable(
-        Object.keys(summary).map(uid => findUserById(uid, users).username),
+        Object.keys(summary).map(uid => findUserById(uid, users).name),
         [Object.values(summary).map(moneyFormatting)]
     );
 };

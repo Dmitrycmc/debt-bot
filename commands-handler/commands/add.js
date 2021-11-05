@@ -10,16 +10,12 @@ const add = async ({args, text, chatId}) => {
 
     const users = await mongoProvider.getUsers({chatId});
 
-    const fromId = findUserByString(args[0], users)?.userId;
-    const toId = findUserByString(args[1], users)?.userId;
-
-    if (!fromId || !toId) {
-        if (!fromId) {
-            return 'Not found: ' + args[0];
-        }
-        if (!toId) {
-            return 'Not found: ' + args[1];
-        }
+    let fromId, toId;
+    try {
+        fromId = findUserByString(args[0], users)?.userId;
+        toId = findUserByString(args[1], users)?.userId;
+    } catch (e) {
+        return e.message;
     }
 
     if (args[3] !== 'за') {
@@ -44,7 +40,7 @@ const add = async ({args, text, chatId}) => {
 
     return renderTable(
         ['From', 'To', 'Amount', 'Description'],
-        data.map(r => [findUserById(r.from, users).username, findUserById(r.to, users).username, moneyFormatting(r.amount), r.description])
+        [[findUserById(data[0].from, users).name, findUserById(data[0].to, users).name, moneyFormatting(data[0].amount), data[0].description]]
     )
 };
 
