@@ -9,7 +9,7 @@ const register = async ({chatId, userId, username, args}) => {
         aliases: args
     });
 
-    return 'Success';
+    return `Вы зарегистрированы, как ${users[0].name} (${users.map(u => u.alias).join(', ')})`;
 };
 
 module.exports = register;
