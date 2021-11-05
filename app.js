@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/webhook', webhookRouter);
-if (process.env.NODE_ENV === 'dev') {
+if (process.env.NODE_ENV === 'testing') {
   app.use('/testing-api', testingApiRouter);
 }
 

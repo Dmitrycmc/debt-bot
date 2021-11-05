@@ -3,7 +3,6 @@ const {commonPrefixLength} = require('../utils/string');
 const findUserByString = (str, users) => {
     const maxCommonPrefixLength = Math.max(0, ...users.map(u => commonPrefixLength(str, u.alias)));
 
-    console.log(maxCommonPrefixLength);
     if (!maxCommonPrefixLength) {
         throw new Error(`Пользователь ${str} не найден`);
     }
