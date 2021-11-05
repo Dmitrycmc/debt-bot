@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "npm install && nodemon ./bin/www",
     "start": "node ./bin/www",
+    "amment": "git add . && git commit --am --no-edit && git push -f",
+    "release": "git checkout main && git reset --hard testing && git push && git checkout testing",
     "test": "jest"
   },
   "dependencies": {
