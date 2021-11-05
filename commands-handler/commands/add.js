@@ -39,7 +39,7 @@ const add = async ({args, text, chatId}) => {
     const data = await mongoProvider.getById({id: insertedId.insertedId});
 
     return renderTable(
-        ['From', 'To', 'Amount', 'Description'],
+        ['Кто', 'Кому', 'Сколько', 'За что'],
         [[findUserById(data[0].from, users).name, findUserById(data[0].to, users).name, moneyFormatting(data[0].amount), data[0].description]]
     )
 };

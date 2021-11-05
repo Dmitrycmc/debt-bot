@@ -47,9 +47,9 @@ const register = ({userId, chatId, login, name, aliases}) => {
   return action('users', collection => collection.insertMany(aliases.map(alias => ({userId, chatId, login, name, alias}))));
 };
 
-const getUsers = ({chatId}) => {
+const getUsers = (conditions) => {
   return action('users', collection => new Promise(res => {
-    collection.find({chatId}).toArray((err, result) => res(result));
+    collection.find(conditions).toArray((err, result) => res(result));
   }));
 };
 

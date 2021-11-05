@@ -1,6 +1,6 @@
 const {findUserByString} = require('./users');
 
-const users = ['Дима','Денис','Саша'].map(alias => ({alias}));
+const users = ['Дима', 'Денис', 'Саша'].map(alias => ({alias}));
 
 describe('findUserByString', () => {
     test('findUserByString("Дима") = "Дима"', () => {
@@ -21,6 +21,11 @@ describe('findUserByString', () => {
 
     test('findUserByString("Гриша") - не найдено', () => {
         expect(() => findUserByString('Гриша', users))
+            .toThrow('Пользователь Гриша не найден')
+    });
+
+    test('findUserByString("Гриша") - не найдено', () => {
+        expect(() => findUserByString('Гриша', []))
             .toThrow('Пользователь Гриша не найден')
     });
 
