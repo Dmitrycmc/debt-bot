@@ -8,56 +8,56 @@ const dbPassword = process.env.DB_PASSWORD;
 const uri = `mongodb+srv://${dbUser}:${dbPassword}@${clusterName}.v8w4a.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
 const action = async (collectionName, callback) => {
-  let client;
-  try {
-    client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    await client.connect();
-    const db = client.db(dbName);
-    const collection = db.collection(collectionName);
-    return await callback(collection);
-  } catch (e) {
-    console.log('Error: ', e);
-  } finally {
-    client.close()
-  }
+    let client;
+    try {
+        client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        await client.connect();
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+        return await callback(collection);
+    } catch (e) {
+        console.log('Error: ', e);
+    } finally {
+        client.close();
+    }
 };
 
 const insert = ({from, to, amount, description, chatId}) => {
-  const dateTime = (new Date()).toISOString();
-  return action('debts', collection => collection.insertOne({from, to, amount, description, dateTime, chatId}));
+    const dateTime = (new Date()).toISOString();
+    return action('debts', collection => collection.insertOne({from, to, amount, description, dateTime, chatId}));
 };
 
 const getAll = ({chatId}) => {
-  return action('debts', collection => new Promise(res => {
-    collection.find({chatId}).toArray((err, result) => res(result));
-  }));
+    return action('debts', collection => new Promise(res => {
+        collection.find({chatId}).toArray((err, result) => res(result));
+    }));
 };
 
 const getById = ({id}) => {
-  return action('debts', collection => new Promise(res => {
-    collection.find({_id: id}).toArray((err, result) => res(result));
-  }));
+    return action('debts', collection => new Promise(res => {
+        collection.find({_id: id}).toArray((err, result) => res(result));
+    }));
 };
 
 const clearAll = () => {
-  return action('debts', collection => collection.deleteMany({}));
+    return action('debts', collection => collection.deleteMany({}));
 };
 
 const register = ({userId, chatId, login, name, aliases}) => {
-  return action('users', collection => collection.insertMany(aliases.map(alias => ({userId, chatId, login, name, alias}))));
+    return action('users', collection => collection.insertMany(aliases.map(alias => ({userId, chatId, login, name, alias}))));
 };
 
 const getUsers = (conditions) => {
-  return action('users', collection => new Promise(res => {
-    collection.find(conditions).toArray((err, result) => res(result));
-  }));
+    return action('users', collection => new Promise(res => {
+        collection.find(conditions).toArray((err, result) => res(result));
+    }));
 };
 
 module.exports = {
-  insert,
-  getAll,
-  clearAll,
-  register,
-  getUsers,
-  getById
+    insert,
+    getAll,
+    clearAll,
+    register,
+    getUsers,
+    getById
 };

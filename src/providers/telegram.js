@@ -14,7 +14,7 @@ const send = async ({text, chatId}) => {
             disable_web_page_preview: true,
             disable_notification: !chatId
         }
-    })
+    });
 };
 
 const getChat = async ({chatId}) => {
@@ -33,8 +33,8 @@ const setWebhook = async () => {
             url: `${APP_URL}${WEBHOOK_PATH}?token=${WEBHOOK_TOKEN}`
         }
     });
-    console.log("Webhook set!");
-}
+    console.log('Webhook set!');
+};
 
 module.exports = {
     send,

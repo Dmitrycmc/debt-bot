@@ -1,24 +1,24 @@
 const mongoProvider = require('../../providers/mongo');
 const {isNumber} = require('../../utils/number');
 const {findUserByString, findUserById} = require('../../helper/users');
-const {renderTable, moneyFormatting} = require("../../utils/formatting");
+const {renderTable, moneyFormatting} = require('../../utils/formatting');
 
 const add = async ({args, userId, chatId}) => {
     const users = await mongoProvider.getUsers({chatId});
 
     let fromIds, toId;
     try {
-        if (args[1].toLowerCase() === "мне") {
+        if (args[1].toLowerCase() === 'мне') {
             toId = userId;
         } else {
             toId = findUserByString(args[1], users)?.userId;
         }
 
-        if (args[0].toLowerCase() === "все") {
+        if (args[0].toLowerCase() === 'все') {
             const userIds = new Set(users.map(u => u.userId));
             userIds.delete(toId);
             fromIds = Array.from(userIds);
-        } else if (args[0].toLowerCase() === "я") {
+        } else if (args[0].toLowerCase() === 'я') {
             fromIds = [userId];
         } else {
             fromIds = [findUserByString(args[0], users)?.userId];
@@ -46,9 +46,9 @@ const add = async ({args, userId, chatId}) => {
     })))
         .then(data => mongoProvider.getById({id: {$in: data.map(r => r.insertedId)}}))
         .then(data => renderTable(
-                ['Кто', 'Кому', 'Сколько', 'За что'],
-                data.map(row => [findUserById(row.from, users).name, findUserById(row.to, users).name, moneyFormatting(row.amount), row.description])
-            ))
+            ['Кто', 'Кому', 'Сколько', 'За что'],
+            data.map(row => [findUserById(row.from, users).name, findUserById(row.to, users).name, moneyFormatting(row.amount), row.description])
+        ));
 };
 
 module.exports = add;

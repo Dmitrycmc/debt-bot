@@ -17,7 +17,7 @@ const bill = async ({chatId}) => {
         ['Кто', 'Кому', 'Сколько', 'За что'],
         data.map(r => [findUserById(r.from, users).name, findUserById(r.to, users).name, moneyFormatting(r.amount), r.description])
     )
-        + "\n\n" +
+        + '\n\n' +
     renderTable(
         Object.keys(summary).map(uid => findUserById(uid, users).name),
         [Object.values(summary).map(moneyFormatting)]
