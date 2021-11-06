@@ -4,10 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('./app');
 var debug = require('debug')('cool-story-game:server');
 var http = require('http');
-var telegramProvider = require('../providers/telegram');
+var telegramProvider = require('./providers/telegram');
 /**
  * Get port from environment and store in Express.
  */

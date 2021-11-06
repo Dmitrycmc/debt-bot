@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "npm install && nodemon ./bin/www",
-    "start": "node ./bin/www",
+    "dev": "npm install && nodemon src/server.js",
+    "start": "node src/server.js",
     "amment": "git add . && git commit --am --no-edit && git push -f",
     "release": "git checkout main && git reset --hard testing && git push && git checkout testing",
     "test": "jest"
