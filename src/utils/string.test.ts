@@ -1,4 +1,4 @@
-const {commonPrefixLength} = require('./string');
+import {commonPrefixLength} from './string';
 
 describe('commonPrefixLength', () => {
     test('commonPrefixLength("1234567", "12") = 2', () => {
@@ -20,8 +20,8 @@ describe('commonPrefixLength', () => {
         expect(commonPrefixLength('1234567', '1234567')).toEqual(7);
     });
 
-    test('commonPrefixLength(null) = 0', () => {
-        expect(commonPrefixLength(null)).toEqual(0);
+    test('commonPrefixLength("") = 0', () => {
+        expect(commonPrefixLength('', '1234567')).toEqual(0);
     });
 
     test('commonPrefixLength("abcde", "abCD") = 4', () => {

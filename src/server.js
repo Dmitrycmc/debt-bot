@@ -26,7 +26,6 @@ const server = http.createServer(app);
  */
 
 server.listen(port,  () => {
-    telegramProvider.send({text: `App [${process.env.NODE_ENV}] started`});
     console.log(`App has been started on port ${port}...`);
 });
 server.on('error', onError);

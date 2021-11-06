@@ -1,4 +1,4 @@
-const {range} = require('./array');
+import {range} from './array';
 
 describe('range', () => {
     test('range(0) = []', () => {

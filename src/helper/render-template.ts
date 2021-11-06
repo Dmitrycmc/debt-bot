@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const renderTemplate = (templateName, params = {}) => new Promise((res, rej) => {
+export const renderTemplate = (templateName: string, params = {}): Promise<string> => new Promise((res, rej) => {
     const templateFileName = path.join(__dirname, '..', '..', 'templates', `${templateName}.html`);
 
     fs.readFile(templateFileName, {encoding: 'utf-8'}, (err, data) => {
@@ -16,5 +16,3 @@ const renderTemplate = (templateName, params = {}) => new Promise((res, rej) => 
         }
     });
 });
-
-module.exports = renderTemplate;

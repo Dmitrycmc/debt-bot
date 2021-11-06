@@ -2,8 +2,6 @@
   "restartable": "rs",
   "ignore": ["*.test.js", "*.test.ts"],
   "watch": ["src"],
-  "execMap": {
-    "ts": "node -r ts-node/register"
-  },
+  "exec": "node -r ts-node/register",
   "ext": "js,json,ts"
 }

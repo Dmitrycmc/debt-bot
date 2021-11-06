@@ -1,4 +1,4 @@
-const {isNumber} = require('./number');
+import {isNumber} from './number';
 
 describe('isNumber', () => {
     test('isNumber(0) = true', () => {

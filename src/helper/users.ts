@@ -1,6 +1,7 @@
-const {commonPrefixLength} = require('../utils/string');
+import {commonPrefixLength} from '../utils/string';
+import {User} from 'types/user';
 
-const findUserByString = (str, users) => {
+export const findUserByString = (str: string, users: User[]): User => {
     const maxCommonPrefixLength = Math.max(0, ...users.map(u => commonPrefixLength(str, u.alias)));
 
     if (!maxCommonPrefixLength) {
@@ -16,9 +17,4 @@ const findUserByString = (str, users) => {
     return nearestUsers[0];
 };
 
-const findUserById = (id, users) => users.find(u => u.userId === Number(id));
-
-module.exports = {
-    findUserByString,
-    findUserById
-};
+export const findUserById = (id: string, users: User[]): User | null => users.find(u => u.userId === Number(id)) || null;

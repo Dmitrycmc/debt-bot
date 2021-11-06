@@ -1,4 +1,4 @@
-const {prefix, moneyFormatting, renderTable} = require('./formatting');
+import {prefix, moneyFormatting} from './formatting';
 
 describe('prefix', () => {
     test('prefix("text", -2) = "text"', () => {
@@ -45,29 +45,5 @@ describe('moneyFormatting', () => {
 
     test('moneyFormatting(10) = "-129.23 ₽"', () => {
         expect(moneyFormatting(-12923)).toEqual("-129.23 ₽");
-    });
-});
-
-describe('renderTable', () => {
-    test('renderTable()', () => {
-        expect(renderTable(['Column 1', '', '', ''], [['a'], ['aba', 'aba', ''], ['ababa', 'ababa', '', 'aba']])).toEqual(
-            `<pre>|Column 1|     ||   |
-|--------+-----++---|
-|       a|     ||   |
-|     aba|  aba||   |
-|   ababa|ababa||aba|</pre>`);
-    });
-
-    test('renderTable(null, [])', () => {
-        expect(renderTable(null, [['a'], ['aba', 'aba', ''], ['ababa', 'ababa', '', 'aba']])).toEqual(
-            `<pre>|    a|     ||   |
-|  aba|  aba||   |
-|ababa|ababa||aba|</pre>`);
-    });
-
-    test('renderTable([])', () => {
-        expect(renderTable(['Column 1', '', '', ''])).toEqual(
-            `<pre>|Column 1||||
-|--------+++|</pre>`);
     });
 });

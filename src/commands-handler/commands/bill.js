@@ -1,5 +1,6 @@
 const mongoProvider = require('../../providers/mongo');
-const {moneyFormatting, renderTable} = require('../../utils/formatting');
+const {moneyFormatting} = require('../../utils/formatting');
+const {renderTable} = require('../../helper/render-table');
 const {findUserById} = require('../../helper/users');
 
 const bill = async ({chatId}) => {

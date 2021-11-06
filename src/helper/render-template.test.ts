@@ -1,4 +1,4 @@
-const renderTemplate = require('./render-template');
+import {renderTemplate} from './render-template';
 
 describe('renderTemplate', () => {
     test('renderTemplate - not found', () => {

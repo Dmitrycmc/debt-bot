@@ -3,10 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "npm install && nodemon src/server.ts",
-    "build": "rm -rf build && tsc",
-    "start": "npm run build && node build/server.js",
-    "test": "npm run build && jest build",
+    "dev": "npm install && nodemon src/server",
+    "start": "ts-node src/server",
+    "test": "jest",
     "amment": "git add . && git commit --am --no-edit && git push -f",
     "release": "git checkout main && git reset --hard testing && git push && git checkout testing"
   },
@@ -18,15 +17,18 @@
     "got": "^11.8.2",
     "http-errors": "~1.6.3",
     "mongodb": "^4.1.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
     "eslint": "^8.2.0",
     "husky": "^7.0.4",
     "jest": "^27.3.1",
     "nodemon": "^2.0.14",
-    "ts-node": "^10.4.0"
+    "ts-jest": "^27.0.7"
   }
 }
