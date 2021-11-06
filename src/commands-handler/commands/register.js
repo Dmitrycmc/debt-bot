@@ -1,5 +1,5 @@
 const mongoProvider = require('../../providers/mongo');
-const renderTemplate = require('../../helper/render-template/render-template');
+const renderTemplate = require('../../helper/render-template');
 
 const register = async ({chatId, userId, username, args}) => {
     const users = await mongoProvider.getUsers({chatId, userId});

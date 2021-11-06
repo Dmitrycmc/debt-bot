@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "npm install && nodemon src/server.js",
-    "start": "node src/server.js",
+    "dev": "npm install && nodemon src/server.ts",
+    "build": "rm -rf build && tsc",
+    "start": "npm run build && node build/server.js",
+    "test": "npm run build && jest build",
     "amment": "git add . && git commit --am --no-edit && git push -f",
-    "release": "git checkout main && git reset --hard testing && git push && git checkout testing",
-    "test": "jest"
+    "release": "git checkout main && git reset --hard testing && git push && git checkout testing"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -21,6 +22,8 @@
   },
   "devDependencies": {
     "husky": "^7.0.4",
-    "jest": "^27.3.1"
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.14",
+    "ts-node": "^10.4.0"
   }
 }

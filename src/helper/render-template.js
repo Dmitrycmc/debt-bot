@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const renderTemplate = (templateName, params = {}) => new Promise((res, rej) => {
-    const templateFileName = path.join(__dirname, "templates", `${templateName}.html`);
+    const templateFileName = path.join(__dirname, "..", "..", "templates", `${templateName}.html`);
 
     fs.readFile(templateFileName, {encoding: 'utf-8'}, (err, data) => {
         if (err) {
