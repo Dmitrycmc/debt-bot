@@ -1,10 +1,14 @@
 const mongoProvider = require('../../providers/mongo');
+const renderTemplate = require('../../helper/render-template/render-template');
 
 const register = async ({chatId, userId, username, args}) => {
     const users = await mongoProvider.getUsers({chatId, userId});
 
     if (users.length) {
-        return `⚠️ Вы уже зарегистрированы, как ${users[0].name} (${users.map(u => u.alias).join(', ')})`;
+        return renderTemplate('registered-failed', {
+            name: users[0].name,
+            aliases: users.map(u => u.alias).join(', ')
+        });
     }
 
     const aliases = Array.from(new Set(args));
@@ -17,7 +21,10 @@ const register = async ({chatId, userId, username, args}) => {
         aliases
     });
 
-    return `✅ Вы зарегистрированы, как ${args[0]} (${aliases.join(', ')})`;
+    return renderTemplate('registered-successfully', {
+        name: args[0],
+        aliases: aliases.join(', ')
+    });
 };
 
 module.exports = register;

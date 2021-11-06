@@ -1,5 +1,6 @@
-var handleCommand = require('../commands-handler/handle-command');
+const handleCommand = require('../commands-handler/handle-command');
 const telegramProvider = require('../providers/telegram');
+const renderTemplate = require('../helper/render-template/render-template');
 
 const webhook = async (req, res, next) => {
   console.log("Webhook body: ");
@@ -15,13 +16,7 @@ const webhook = async (req, res, next) => {
   if (req.body.my_chat_member) {
     if (req.body.my_chat_member.new_chat_member.status === 'member') {
       telegramProvider.send({
-        chatId: req.body.my_chat_member.chat.id, text: `Привет! 😼
-Теперь я буду заниматься ведением ваших долгов 👊
-Каждый из вас должен со своего аккаунта пройти регистрацию с помощью команды <code>/register</code>
-Через пробел укажите список имен, как к вам можно обращаться, я буду обращаться к вам по первому из них.
-  
-Пример:
-<code>/register Бот робот коллектор</code>`
+        chatId: req.body.my_chat_member.chat.id, text: await renderTemplate('greetings')
       });
     }
     res.status(200).end();
@@ -30,10 +25,12 @@ const webhook = async (req, res, next) => {
 
   const message = req.body.message;
 
-  if (!message ||
+  if (
+      !message ||
       !message.text ||
       !message.entities ||
-      message.entities.filter(e => e.type === 'bot_command').length !== 1) {
+      message.entities.filter(e => e.type === 'bot_command').length !== 1
+  ) {
     telegramProvider.send({text: `Skipped: ${JSON.stringify(req.body)}`});
     res.status(200).end();
     return;
