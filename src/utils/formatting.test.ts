@@ -50,4 +50,8 @@ describe('moneyFormatting', () => {
     test('moneyFormatting(8166.666666666667) = "81.67 ₽"', () => {
         expect(moneyFormatting(8166.666666666667)).toEqual("81.67 ₽");
     });
+
+    test('moneyFormatting(2380000066.666666666667) = "23 800 000.67 ₽"', () => {
+        expect(moneyFormatting(2380000066.666666666667)).toEqual("23 800 000.67 ₽");
+    });
 });

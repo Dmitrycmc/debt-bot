@@ -20,8 +20,11 @@ const bill = async ({chatId}) => {
     )
         + '\n\n' +
     renderTable(
-        Object.keys(summary).map(uid => findUserById(uid, users).name),
-        [Object.values(summary).map(moneyFormatting)]
+        null,
+        Object.entries(summary)
+            .map(([uid, amount]) => ({uid, amount}))
+            .sort((a, z) => z.amount- a.amount)
+            .map(({uid, amount}) => [findUserById(uid, users).name, moneyFormatting(amount)])
     );
 };
 
