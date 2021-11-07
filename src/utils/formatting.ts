@@ -11,7 +11,7 @@ export const moneyFormatting = (amount: number): string => {
 
     let result = String(Math.floor(amount / 100));
     if (amount % 100) {
-        result +=`.${prefix(String(amount % 100), 2, '0')}`;
+        result +=`.${prefix(String(Math.round(amount % 100)), 2, '0')}`;
     }
     result += ' ₽';
     return result;

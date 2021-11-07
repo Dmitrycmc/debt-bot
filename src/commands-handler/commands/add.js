@@ -48,7 +48,7 @@ const add = async ({args, userId, chatId}) => {
     return await Promise.all(fromIds.map(fromId => mongoProvider.insert({
         from: fromId,
         to: toId,
-        amount: args[2].replace(',', '.') * 100 / (fromIds.length + (all ? 1 : 0)),
+        amount: Math.round(args[2].replace(',', '.') * 100 / (fromIds.length + (all ? 1 : 0))),
         description: args.slice(3).join(' '),
         chatId
     })))
