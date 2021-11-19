@@ -1,6 +1,6 @@
 const handleCommand = require('../commands-handler/handle-command');
 const telegramProvider = require('../providers/telegram');
-const renderTemplate = require('../helper/render-template');
+const {renderTemplate} = require("../helper/render-template");
 
 const webhook = async (req, res, next) => {
     console.log('Webhook body: ');
