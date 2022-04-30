@@ -7,7 +7,8 @@
     "start": "ts-node src/server",
     "test": "jest",
     "amment": "git add . && git commit --am --no-edit && git push -f",
-    "release": "git checkout main && git reset --hard testing && git push && git checkout testing"
+    "deploy": "git push heroku main -f",
+    "logs": "heroku logs --tail"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
