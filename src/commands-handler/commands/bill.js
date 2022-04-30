@@ -3,7 +3,7 @@ const {moneyFormatting} = require('../../utils/formatting');
 const {renderTable} = require('../../helper/render-table');
 const {findUserById} = require('../../helper/users');
 
-const bill = async ({chatId}) => {
+const bill = async ({chatId, args}) => {
     const data = await mongoProvider.getAll({chatId});
     const users = await mongoProvider.getUsers({chatId});
 
@@ -14,9 +14,11 @@ const bill = async ({chatId}) => {
         return acc;
     }, {});
 
+    const limit = args[0] || 50;
+
     return renderTable(
         ['Кто', 'Кому', 'Сколько', 'За что'],
-        data.map(r => [findUserById(r.from, users).name, findUserById(r.to, users).name, moneyFormatting(r.amount), r.description])
+        data.slice(-limit).map(r => [findUserById(r.from, users).name, findUserById(r.to, users).name, moneyFormatting(r.amount), r.description])
     )
         + '\n\n' +
     renderTable(
