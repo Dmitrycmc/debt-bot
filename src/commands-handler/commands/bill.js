@@ -5,6 +5,7 @@ const {findUserById} = require('../../helper/users');
 
 const bill = async ({chatId, args}) => {
     const data = await mongoProvider.getAll({chatId});
+    let slicedData = [];
     const users = await mongoProvider.getUsers({chatId});
 
     const summary = data.reduce((acc, {from, to, amount}) => {
@@ -14,11 +15,20 @@ const bill = async ({chatId, args}) => {
         return acc;
     }, {});
 
-    const limit = args[0] || 50;
+    if (args[1] !== undefined) {
+        if (Number.isInteger(Number(args[0])) && Number.isInteger(Number(args[1]))) {
+            slicedData = data.slice(args[0], args[1]);
+        }
+    } else {
+        if (Number.isInteger(Number(args[0]))) {
+            const limit = args[0] || 50;
+            slicedData = data.slice(-limit);
+        }
+    }
 
     return renderTable(
         ['Кто', 'Кому', 'Сколько', 'За что'],
-        data.slice(-limit).map(r => [findUserById(r.from, users).name, findUserById(r.to, users).name, moneyFormatting(r.amount), r.description])
+        slicedData.map(r => [findUserById(r.from, users).name, findUserById(r.to, users).name, moneyFormatting(r.amount), r.description])
     )
         + '\n\n' +
     renderTable(
