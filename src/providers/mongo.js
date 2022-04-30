@@ -27,9 +27,19 @@ const insert = ({from, to, amount, description, chatId}) => {
     return action('debts', collection => collection.insertOne({from, to, amount, description, dateTime, chatId}));
 };
 
-const getAll = ({chatId}) => {
+const getAllNotHidden = ({chatId}) => {
     return action('debts', collection => new Promise(res => {
-        collection.find({chatId}).toArray((err, result) => res(result));
+        collection.find(
+            {$or: [{chatId, hidden: {$exists: false}}, {chatId, hidden: false}]}
+        ).toArray((err, result) => res(result));
+    }));
+};
+
+const getAllHidden = ({chatId}) => {
+    return action('debts', collection => new Promise(res => {
+        collection.find(
+            {chatId, hidden: {$exists: true}}
+        ).toArray((err, result) => res(result));
     }));
 };
 
@@ -41,6 +51,10 @@ const getById = ({id}) => {
 
 const clearAll = () => {
     return action('debts', collection => collection.deleteMany({}));
+};
+
+const hide = ({ids}) => {
+    return action('debts', collection => collection.findOneAndUpdate({_id: {$in: ids}}, {$set: {hidden: true}}));
 };
 
 const register = ({userId, chatId, login, name, aliases}) => {
@@ -55,9 +69,11 @@ const getUsers = (conditions) => {
 
 module.exports = {
     insert,
-    getAll,
+    getAllNotHidden,
+    getAllHidden,
     clearAll,
     register,
+    hide,
     getUsers,
     getById
 };

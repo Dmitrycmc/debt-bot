@@ -19,7 +19,7 @@ const handleCommand = async ({text, userId, username, firstname, lastname, chatI
             }), chatId
         });
     } catch (e) {
-
+        console.error(e);
     }
 };
 
