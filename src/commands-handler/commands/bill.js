@@ -16,6 +16,12 @@ const bill = async ({chatId, args}) => {
     }, {});
 
     if (args[1] !== undefined) {
+        console.log(args);
+        console.log(Number.isInteger(Number(args[0])) && Number.isInteger(Number(args[1])));
+        console.log(args[0]);
+        console.log(args[1]);
+        console.log(data);
+        console.log(data.slice(args[0], args[1]));
         if (Number.isInteger(Number(args[0])) && Number.isInteger(Number(args[1]))) {
             slicedData = data.slice(args[0], args[1]);
         }
@@ -35,7 +41,7 @@ const bill = async ({chatId, args}) => {
         null,
         Object.entries(summary)
             .map(([uid, amount]) => ({uid, amount}))
-            .sort((a, z) => z.amount- a.amount)
+            .sort((a, z) => z.amount - a.amount)
             .map(({uid, amount}) => [findUserById(uid, users).name, moneyFormatting(amount)])
     );
 };
